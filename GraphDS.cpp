@@ -9,16 +9,23 @@ class Graph
 
 public : 
         bool * visited ;
-       
         Graph (int V) ; 
         void addEdge(int src , int dst ) ; 
         void  BFS(int src); 
         void  DFS(int src);
-        void DFT();
+        void  DFT();
+        void  BFT(); 
         bool isForest(int src) ; 
         void DFSRecursive(int src) ; 
+        void initializeVisitedArray(); 
   
 };
+
+void Graph :: initializeVisitedArray()
+{
+    for(int i =0 ; i < no_of_vertices ; i++)
+        visited[i] = false ; 
+}   
 
 Graph :: Graph (int V) 
 {
@@ -38,8 +45,6 @@ void Graph ::  addEdge(int src , int dst )
 
 void Graph ::  BFS(int src)
 {
-  for(int i =0 ; i < no_of_vertices ; i++) visited[i] = false  ; 
-     
   visited[src] = true ; 
   queue<int> q ;
   q.push(src) ;
@@ -62,6 +67,7 @@ void Graph ::  BFS(int src)
 void Graph ::  DFSRecursive(int src)
 {
     cout << src <<" "; 
+    visited[src] = true ;
     for(int &i : adjList[src])
         if(visited[i] == false)
             DFSRecursive(i); 
@@ -69,8 +75,6 @@ void Graph ::  DFSRecursive(int src)
 
 void Graph ::  DFS(int src)
 {
-  for(int i =0 ; i < no_of_vertices ; i++) visited[i] = false  ; 
-     
   visited[src] = true ; 
   stack<int> s ;
   s.push(src) ;
@@ -88,7 +92,8 @@ void Graph ::  DFS(int src)
           }
       }
   }
-}
+} 
+
 void Graph ::  DFT()
 {
     for(int i =0 ; i < no_of_vertices ; i++)
@@ -109,6 +114,8 @@ bool Graph ::  isForest(int src)
     return false ;
 }
 
+
+
 int main()
 {
     Graph g1(8) ; 
@@ -118,8 +125,14 @@ int main()
     g1.addEdge(1,4); 
     g1.addEdge(5,6); 
     g1.addEdge(5,7); 
-   
-     g1.DFS(0); 
+    
+   g1.initializeVisitedArray(); 
+   g1.DFSRecursive(0);
+   cout << "\n"; 
+   g1.initializeVisitedArray(); 
+   g1.DFSRecursive(0);
+   /*  if(g1.isForest(0))
+        cout <<"IS FOREST " ; */
+    //g1.DFT(); 
     return 0 ; 
 }
-
