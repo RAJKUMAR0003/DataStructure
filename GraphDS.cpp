@@ -6,9 +6,9 @@ class Graph
 {
   int no_of_vertices ; 
   list <int> * adjList ;
-
+   bool * visited ; 
 public : 
-        bool * visited ;
+       
         Graph (int V) ; 
         void addEdge(int src , int dst ) ; 
         void  BFS(int src); 
